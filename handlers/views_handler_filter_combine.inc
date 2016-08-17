@@ -72,9 +72,9 @@ class views_handler_filter_combine extends views_handler_filter_string {
       $separated_fields = array();
       foreach ($fields as $key => $field) {
         $separated_fields[] = $field;
-        if ($key < $count - 1) {
+        //if ($key < $count - 1) {
           $separated_fields[] = "' '";
-        }
+        //}
       }
       $expression = implode(', ', $separated_fields);
       $expression = "CONCAT_WS(' ', $expression)";
@@ -119,7 +119,7 @@ class views_handler_filter_combine extends views_handler_filter_string {
       $words = $phrase ? array($words) : preg_split('/ /', $words, -1, PREG_SPLIT_NO_EMPTY);
       $placeholder = $this->placeholder();
       foreach ($words as $word) {
-        $where->where($field . " LIKE $placeholder", array($placeholder => '%' . db_like(trim($word, " ,!?")) . '%'));
+        $where->where($field . " LIKE $placeholder", array($placeholder => '%' . db_like(trim($word, " ,!?")) . ' %'));
       }
     }
 
